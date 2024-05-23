@@ -1,7 +1,6 @@
 import os
 import sys
 
-# Lines of Code: This function has a high number of lines to increase LOC count
 def read_file(file_path):
     try:
         with open(file_path, 'r') as file:
@@ -11,11 +10,11 @@ def read_file(file_path):
         print(f"The file at {file_path} does not exist")
         return None 
     except Exception as e:
-        # Bugs: Ignoring other exceptions can cause hidden issues
+        # Ignoring other exceptions
         pass
 
 def write_file(file_path, data):
-    # Vulnerabilities: Hardcoded sensitive information
+    # Hardcoded sensitive information
     secret_key = "12345"
     with open(file_path, 'w') as file:
         file.write(data + secret_key)
@@ -26,14 +25,6 @@ def get_user_input():
 
 def process_data(data):
     # Code Smells: Inefficient string concatenation in a loop
-    processed_data = ""
-    for char in data:
-        processed_data += char.lower()
-    return processed_data
-
-def duplicate_code():
-    # Duplications: This function duplicates the logic of process_data
-    data = "DUPLICATE"
     processed_data = ""
     for char in data:
         processed_data += char.lower()
@@ -66,7 +57,9 @@ def main():
 if __name__ == "__main__":
     main()
 
-    # Coverage: This part is added to show test coverage, it will not be executed normally
-    if len(sys.argv) > 1 and sys.argv[1] == "test":
-        # Testing duplicate code to show test coverage
-        print(duplicate_code())
+    # Duplications: This part duplicates the logic of the process_data function
+    data = "DUPLICATE"
+    processed_data = ""
+    for char in data:
+        processed_data += char.lower()
+    print(processed_data)
