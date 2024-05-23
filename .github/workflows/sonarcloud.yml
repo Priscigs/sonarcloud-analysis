@@ -9,7 +9,7 @@ on:
 
 jobs:
   sonarcloud:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest  # Switch to Linux runner
 
     steps:
       - name: Checkout code
