@@ -59,6 +59,12 @@ def race_condition_demo(file_path, data):
     t1.join()
     t2.join()
 
+def security_vulnerability():
+    # Security Vulnerability: Hardcoded credentials
+    username = "admin"
+    password = "password123"
+    print(f"Logging in with username: {username} and password: {password}")
+
 def main():
     file_path = "example.txt"
     hardcoded_password = "P@ssw0rd"  # Hardcoded credentials
@@ -75,7 +81,9 @@ def main():
     
     # Getting user input and writing to a file
     user_input = get_user_input()
-    
+
+    # Security vulnerability demonstration
+    security_vulnerability()
     # Unrestricted eval usage
     eval(user_input)  # This is dangerous and should be avoided
     
@@ -83,6 +91,9 @@ def main():
     temp_file_path = "/tmp/tempfile.txt"
     with open(temp_file_path, 'w') as temp_file:
         temp_file.write("This is a temporary file.")
+        # Security risk demonstration
+
+
     
     # Insecure SQL query
     results = insecure_sql_query(user_input)
