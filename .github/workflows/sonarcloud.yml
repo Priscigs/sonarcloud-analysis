@@ -29,11 +29,12 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar
 
       - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@v1
-        with:
-          projectBaseDir: .
+        uses: SonarSource/sonarcloud-github-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_PROJECT_KEY: Priscigs_sonarcloud-analysis
-          SONAR_ORGANIZATION: priscigs
-          SONAR_HOST_URL: https://sonarcloud.io
+        with:
+          args: >
+            -Dsonar.organization=priscigs
+            -Dsonar.projectKey=Priscigs_sonarcloud-analysis
+            -Dsonar.sources=.
+            -Dsonar.host.url=https://sonarcloud.io
