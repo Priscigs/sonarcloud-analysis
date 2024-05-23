@@ -2,7 +2,7 @@ name: SonarCloud
 
 on:
   push:
-    branches: 
+    branches:
       - main
   pull_request:
     types: [opened, synchronized, reopened]
@@ -28,18 +28,12 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
-      - name: Install SonarCloud Scanner
-        run: |
-          curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-macosx.zip
-          unzip sonar-scanner.zip -d ~/sonar-scanner
-          export PATH="~/sonar-scanner/sonar-scanner-4.6.2.2472-macosx/bin:$PATH"
-
       - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@v1
+        with:
+          projectBaseDir: .
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          ~/sonar-scanner/sonar-scanner-4.6.2.2472-macosx/bin/sonar-scanner \
-          -Dsonar.organization=priscigs \
-          -Dsonar.projectKey=Priscigs_sonarcloud-analysis \
-          -Dsonar.sources=. \
-          -Dsonar.host.url=https://sonarcloud.io
+          SONAR_PROJECT_KEY: Priscigs_sonarcloud-analysis
+          SONAR_ORGANIZATION: priscigs
+          SONAR_HOST_URL: https://sonarcloud.io
