@@ -16,6 +16,7 @@ def read_file(file_path):
 def write_file(file_path, data):
     # Hardcoded sensitive information
     secret_key = "12345"
+    api_key = "hardcoded_api_key_67890"  # Hardcoded API key
     with open(file_path, 'w') as file:
         file.write(data)
 
