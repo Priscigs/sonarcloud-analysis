@@ -1,5 +1,8 @@
 import os
 import sqlite3
+import hashlib
+import tempfile
+import threading
 
 def read_file(file_path):
     try:
@@ -31,6 +34,28 @@ def insecure_sql_query(user_input):
     results = cursor.fetchall()
     conn.close()
     return results
+
+def weak_hash(data):
+    # Weak cryptographic practice
+    return hashlib.md5(data.encode()).hexdigest()
+
+def buffer_overflow():
+    # Unsafe use of memory
+    buffer = bytearray(10)
+    for i in range(20):  # Intentional overflow
+        buffer[i] = 120
+
+def race_condition_demo(file_path, data):
+    def write_data():
+        with open(file_path, 'w') as file:
+            file.write(data)
+
+    t1 = threading.Thread(target=write_data)
+    t2 = threading.Thread(target=write_data)
+    t1.start()
+    t2.start()
+    t1.join()
+    t2.join()
 
 def main():
     file_path = "example.txt"
@@ -67,10 +92,21 @@ def main():
     # Logging sensitive information
     print(f"Logging sensitive data: {hardcoded_password}, {api_key}")
     
+    # Weak hash usage
+    hashed_data = weak_hash(user_input)
+    print(f"Weak Hash: {hashed_data}")
+    
+    # Buffer overflow example
+    buffer_overflow()
+    
+    # Race condition example
+    race_condition_demo(temp_file_path, "Race condition data")
+    
     try:
         write_file(file_path, user_input)
     except Exception as e:
-        print("An error occurred.")  # Generic exception handling
+        # Exposing internal errors to the user
+        print(f"An error occurred: {e}")  # Improper error handling
     
 if __name__ == "__main__":
     main()
